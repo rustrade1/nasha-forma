@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17243a"><meta name="description" content="Наша форма: ежедневный вес и недельные денежные призы">
+  <title>Наша форма — наш прогресс</title>
+  <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+  <style>
+    :root{--dark:#17243a;--lime:#d3f7a5;--green:#1f7457;--ink:#17243a;--muted:#667485;--line:#e3e9ef;--bg:#f4f6f8;--purple:#ebe5fd}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #7a5be7;outline-offset:2px}
+    .wrap{max-width:960px;margin:0 auto;padding:20px 16px 56px}.brand{font-size:17px;font-weight:850;margin:0 0 14px;display:flex;gap:9px;align-items:center}.mark{display:grid;place-items:center;background:var(--dark);color:var(--lime);width:34px;height:34px;border-radius:10px}
+    .hero{background:var(--dark);color:white;padding:23px;border-radius:22px;display:flex;justify-content:space-between;gap:16px;align-items:center}.hero h1{font-size:clamp(23px,4vw,34px);margin:3px 0;line-height:1.2}.hero p{color:#c2cbda;margin:4px 0 0;font-size:13px}.eyebrow{text-transform:uppercase;font-size:10px;letter-spacing:1.1px;color:#cad6e5;font-weight:800}.total{text-align:right;white-space:nowrap}.total b{display:block;color:var(--lime);font-size:clamp(28px,5vw,43px);line-height:1.15;font-weight:850}.total small{color:#c5cfda}
+    .toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:19px 0 12px;flex-wrap:wrap}.toolbar strong{font-size:17px}.datewrap{display:flex;gap:8px;align-items:center}.datewrap label{font-size:13px;font-weight:700}.datewrap input{border:1px solid var(--line);border-radius:11px;padding:9px;background:white;min-height:44px}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card,.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 6px 20px #20375509}.card{min-width:0}.card:before{content:"";display:block;background:#7c6cce;width:40px;height:5px;border-radius:8px;margin-bottom:12px}.card:nth-child(2):before{background:#d68b6f}.card h2{font-size:23px;margin:0 0 3px}.last{color:var(--muted);font-size:12px;min-height:19px}.entry{display:flex;gap:9px;align-items:end;margin:15px 0}.entry label{display:block;font-weight:700;font-size:12px;color:var(--muted);margin-bottom:5px}.entry .control{flex:1;min-width:0}.entry input{width:100%;min-width:0;padding:11px;border:1px solid #d6dfe8;border-radius:11px;font-size:21px;font-weight:750;background:#fafbfc}.btn{border:none;background:var(--dark);color:white;font-weight:800;padding:11px 15px;min-height:50px;border-radius:11px}.btn:disabled{opacity:.45;cursor:default}.btn.secondary{background:#eff1f7;color:var(--ink)}.prize{background:#f2f8ee;border-radius:13px;padding:13px;margin-top:7px}.prize .tag{font-size:11px;font-weight:800;color:#437358}.prize b{display:block;font-size:27px;color:var(--green);font-weight:850}.prize small{display:block;color:var(--muted);font-size:12px}.numbers{display:flex;justify-content:space-between;gap:8px;margin-top:14px;font-size:13px}.numbers span{color:var(--muted)}.numbers b{font-weight:800;text-align:right}.numbers+.numbers{border-top:1px solid var(--line);padding-top:10px}
+    .section{margin-top:17px}.section h3{font-size:18px;margin:0 0 12px}.muted{color:var(--muted)}.note{font-size:12px;color:var(--muted);margin:9px 0 0}.panel h3{margin-top:0}.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px;min-width:470px}th{text-align:left;color:var(--muted);font-size:12px;font-weight:800;padding:11px 8px;border-bottom:1px solid var(--line)}td{padding:11px 8px;border-bottom:1px solid var(--line)}th:last-child,td:last-child{text-align:right}.badge{display:inline-block;padding:3px 7px;border-radius:20px;background:#eff1f5;font-weight:700;color:var(--muted);font-size:11px}.badge.live{background:#e6f5de;color:#2f754f}.badge.done{background:#f0ecfd;color:#62529e}.sumrow{display:flex;justify-content:space-between;gap:12px;font-size:15px;font-weight:850;margin-top:14px}
+    details{margin-top:17px;background:white;border:1px solid var(--line);border-radius:16px;padding:16px 19px}summary{font-weight:850;cursor:pointer}details p{font-size:13px}.settings{display:flex;gap:11px;flex-wrap:wrap;margin-top:12px}.settings label{font-size:12px;font-weight:750;display:block}.settings input{width:150px;max-width:100%;padding:10px;background:#fbfcfd;border:1px solid #d9e2eb;border-radius:9px}.settings .btn{align-self:end}.authInputs{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}.authInputs input{padding:10px;border:1px solid #d9e2eb;border-radius:9px;min-width:155px;flex:1}.authActions{display:flex;gap:7px;flex-wrap:wrap}.status{font-weight:700;color:var(--muted);font-size:12px}.status.ok{color:var(--green)}.history{display:grid;gap:8px;margin-top:10px}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border-radius:10px;background:#f7f9fb;font-size:13px}.item button{background:transparent;border:0;color:#a43f4d;font-weight:800;padding:5px}.footer{font-size:12px;color:var(--muted);margin:16px 0 0}.hidden{display:none!important}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#17243a;color:white;border-radius:11px;padding:11px 17px;font-size:13px;max-width:min(90vw,470px);box-shadow:0 12px 30px #18283e3b;display:none;z-index:10}.toast.show{display:block}
+    @media(max-width:620px){.wrap{padding:13px 12px 40px}.hero{padding:19px 16px;gap:8px}.hero h1{font-size:24px}.hero .total b{font-size:26px}.hero .total small{font-size:10px}.cards{grid-template-columns:1fr}.card{padding:18px}.toolbar{align-items:flex-start}.entry{margin:12px 0}.card h2{font-size:22px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand"><span class="mark">↘</span> Наша форма</div>
+  <section class="hero">
+    <div><div class="eyebrow">12 недель · ежедневный вес</div><h1>Худеем — зарабатываем</h1><p id="weekLabel">Неделя 1 из 12</p></div>
+    <div class="total"><b id="familyEarned">0 EGP</b><small>уже заработано на двоих</small></div>
+  </section>
+  <div class="toolbar"><strong>Вносим вес</strong><div class="datewrap"><label for="entryDate">Дата</label><input id="entryDate" type="date"></div></div>
+  <section class="cards" id="cards">
+    <article class="card"><h2>Руслан</h2><p>Загрузка…</p></article><article class="card"><h2>Настя</h2><p>Загрузка…</p></article>
+  </section>
+  <section class="section panel">
+    <h3>Недельные результаты</h3>
+    <div class="tablewrap"><table><thead><tr><th>Неделя</th><th>Руслан</th><th>Настя</th><th>Всего</th></tr></thead><tbody id="weeklyTable"></tbody></table></div>
+    <div class="sumrow"><span>Зафиксировано за 12 недель</span><strong id="periodTotal">0 EGP</strong></div>
+    <p class="note">Награда за текущую неделю предварительная. Итог фиксируется автоматически после её окончания. Начисления идут только за новый минимальный вес на конец недели, без повторной оплаты после отката.</p>
+  </section>
+  <details id="historyDetails"><summary>История взвешиваний</summary><div class="history" id="history"></div><p class="note">Если исправить запись за прошлую неделю, суммы недель пересчитаются. Сайт считает награды, но не переводит деньги.</p></details>
+  <details><summary>Настройки старта</summary><p class="note">Начальная дата задаёт границы недель по 7 дней. Пропущенный день их не сдвигает.</p><div class="settings"><div><label for="startDate">Дата старта</label><input type="date" id="startDate"></div><div><label for="start0">Начальный вес Руслана</label><input type="number" step="0.01" min="30" max="350" id="start0"></div><div><label for="start1">Начальный вес Насти</label><input type="number" step="0.01" min="30" max="350" id="start1"></div><button id="saveSettings" class="btn">Сохранить</button></div><p class="note">Изменение даты или стартового веса пересчитает все награды. Не используйте это для начала нового челленджа.</p></details>
+  <details id="cloudPanel"><summary>☁️ Синхронизация двух телефонов</summary>
+    <p class="status" id="cloudStatus">Проверка подключения…</p>
+    <p class="note" id="cloudSetup">Облачный проект ещё не подключён. До подключения записи сохраняются только на этом телефоне.</p>
+    <div id="cloudGuest"><p class="note">Создайте один семейный аккаунт и входите с его данными на обоих телефонах. Пароль не должен совпадать с другими вашими паролями.</p><div class="authInputs"><input id="email" type="email" placeholder="Семейный email" autocomplete="username"><input id="password" type="password" placeholder="Пароль" autocomplete="current-password"></div><div class="authActions"><button class="btn" id="login">Войти</button><button class="btn secondary" id="register">Создать аккаунт</button></div></div>
+    <div id="cloudSigned" class="hidden"><p>Аккаунт: <b id="cloudEmail"></b></p><div class="authActions"><button class="btn secondary" id="syncNow">Обновить данные</button><button class="btn secondary" id="logout">Выйти</button></div></div>
+    <p class="note">Сохраняйте записи при подключённом интернете. При временном сбое отправки они останутся в очереди на устройстве.</p>
+  </details>
+  <details><summary>Правила денежных призов</summary><p>За неделю: новые 1–124 г — 125 EGP; 125–249 г — 250 EGP; 250–374 г — 375 EGP; 375–500 г — 500 EGP; 501–750 г — 625 EGP; свыше 750 г — 750 EGP. При нулевом снижении — 0 EGP.</p><p class="note">Никаких дополнительных бонусов. Максимум за четыре недели: 3 000 EGP каждому, 6 000 EGP на двоих. Вес вводите в килограммах (например, 97,3).</p></details>
+  <div class="footer">Данные остаются на устройстве до подключения облака. Для безопасности используйте личные устройства. Не пытайтесь ускорить снижение веса обезвоживанием.</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="config.js"></script>
+<script type="module">
+  const $ = id => document.getElementById(id);
+  const STORAGE = 'nasha-forma-weekly-v1';
+  const PENDING = 'nasha-forma-weekly-pending-v1';
+  const fmt = new Intl.NumberFormat('ru-RU', {maximumFractionDigits: 0});
+  const fmtWeight = n => n == null ? '—' : Number(n).toLocaleString('ru-RU', {maximumFractionDigits: 2}) + ' кг';
+  const today = () => {const d = new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+  const DAY = 86400000;
+  function dayNumber(s){const p=s.split('-').map(Number);return Date.UTC(p[0],p[1]-1,p[2])/DAY}
+  function dayString(num){return new Date(num*DAY).toISOString().slice(0,10)}
+  function plusDays(s,n){return dayString(dayNumber(s)+n)}
+  function formatDate(s){const [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
+  function round2(x){return Math.round(x*100)/100}
+  function defaultData(){return {settings:{startDate:today(),weights:[98,96]},entries:[]}}
+  function validData(obj){return obj&&obj.settings&&/^\d{4}-\d{2}-\d{2}$/.test(obj.settings.startDate)&&Array.isArray(obj.settings.weights)&&obj.settings.weights.length===2&&obj.settings.weights.every(w=>Number.isFinite(w)&&w>=30&&w<=350)&&Array.isArray(obj.entries)}
+  function loadData(){try{const o=JSON.parse(localStorage.getItem(STORAGE));if(validData(o))return o}catch(e){}return defaultData()}
+  function loadPending(){try{let p=JSON.parse(localStorage.getItem(PENDING));if(p&&typeof p==='object')return p}catch(e){}return {}}
+  let data=loadData(),pending=loadPending(),client=null,user=null,channel=null,refreshTimer=null,processing=false,refreshing=false;
+  function persist(){localStorage.setItem(STORAGE,JSON.stringify(data))}
+  function persistPending(){localStorage.setItem(PENDING,JSON.stringify(pending))}
+  function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.remove('show'),3600)}
+  function startWeek(d){let n=dayNumber(d)-dayNumber(data.settings.startDate);return n>=0&&n<84?Math.floor(n/7):-1}
+  function getEntry(person,date){return data.entries.find(e=>e.person===person&&e.date===date)?.weight ?? null}
+  function latest(person){return data.entries.filter(e=>e.person===person).sort((a,b)=>b.date.localeCompare(a.date))[0]||null}
+  function weekFinal(person,week,asOf){const from=plusDays(data.settings.startDate,week*7),end=plusDays(from,6);return data.entries.filter(e=>e.person===person&&e.date>=from&&e.date<=end&&e.date<=asOf).sort((a,b)=>b.date.localeCompare(a.date))[0]||null}
+  function prize(diff){const g=Math.round(diff*1000);if(g<=0)return 0;if(g<125)return 125;if(g<250)return 250;if(g<375)return 375;if(g<=500)return 500;if(g<=750)return 625;return 750}
+  function calculations(asOf=today()){
+    const activeWeek=startWeek(asOf);let best=[...data.settings.weights],earned=[0,0],rows=[];
+    for(let w=0;w<12;w++){
+      let weekEnd=plusDays(data.settings.startDate,w*7+6),state=dayNumber(asOf)>dayNumber(weekEnd)?'done':activeWeek===w?'live':'future',persons=[];
+      for(let i=0;i<2;i++){
+        let measurement=state==='future'?null:weekFinal(i,w,asOf);
+        let drop=measurement?Math.max(0,round2(best[i]-measurement.weight)):0;
+        let amount=measurement?prize(drop):0;
+        persons.push({weight:measurement?.weight??null,drop,amount});
+        if(state==='done'){
+          earned[i]+=amount;
+          if(measurement&&measurement.weight<best[i])best[i]=measurement.weight;
+        }
+      }
+      rows.push({week:w+1,state,weekEnd,persons});
+    }
+    return {activeWeek,best,earned,rows};
+  }
+  function render(){
+    const summary=calculations();$('entryDate').max=today();
+    const week=summary.activeWeek;
+    $('weekLabel').textContent=week<0?(dayNumber(today())<dayNumber(data.settings.startDate)?`Старт ${formatDate(data.settings.startDate)}`:'12 недель завершены'):`Неделя ${week+1} из 12 · ${formatDate(plusDays(data.settings.startDate,week*7))}–${formatDate(plusDays(data.settings.startDate,week*7+6))}`;
+    $('familyEarned').textContent=fmt.format(summary.earned[0]+summary.earned[1])+' EGP';
+    $('periodTotal').textContent=fmt.format(summary.earned[0]+summary.earned[1])+' EGP';
+    $('cards').innerHTML=['Руслан','Настя'].map((name,i)=>{
+      const latestEntry=latest(i),current=getEntry(i,$('entryDate').value),live=week>=0?summary.rows[week].persons[i]:null;
+      return `<article class="card"><h2>${name}</h2><div class="last">Последний вес: ${latestEntry?`${fmtWeight(latestEntry.weight)} · ${formatDate(latestEntry.date)}`:'пока нет записей'}</div>
+        <div class="entry"><div class="control"><label for="weight${i}">Вес за ${formatDate($('entryDate').value)}, кг</label><input id="weight${i}" type="number" min="30" max="350" step="0.01" inputmode="decimal" placeholder="Например, 97.30" value="${current??''}"></div><button class="btn" type="button" id="save${i}">Сохранить</button></div>
+        <div class="prize"><div class="tag">${live?'ПРЕДВАРИТЕЛЬНО ЗА НЕДЕЛЮ':'НЕДЕЛЯ НЕ АКТИВНА'}</div><b>${fmt.format(live?.amount||0)} EGP</b><small>${live?`Новые ${fmtWeight(live.drop)} по сравнению с оплаченным рекордом`:'Укажите вес в неделю челленджа'}</small></div>
+        <div class="numbers"><span>Оплаченный рекорд</span><b>${fmtWeight(summary.best[i])}</b></div>
+        <div class="numbers"><span>Уже заработано</span><b>${fmt.format(summary.earned[i])} EGP</b></div>
+      </article>`;
+    }).join('');
+    [0,1].forEach(i=>{$('save'+i).addEventListener('click',()=>saveEntry(i));$('weight'+i).addEventListener('keydown',e=>{if(e.key==='Enter')saveEntry(i)})});
+    $('weeklyTable').innerHTML=summary.rows.map(row=>{
+      const cls=row.state==='done'?'done':row.state==='live'?'live':'';
+      const label=row.state==='done'?'Завершена':row.state==='live'?'Идёт':'Впереди';
+      return `<tr><td><strong>${row.week}-я</strong><br><span class="badge ${cls}">${label}</span></td><td>${row.state==='future'?'—':`${fmt.format(row.persons[0].amount)} EGP`}</td><td>${row.state==='future'?'—':`${fmt.format(row.persons[1].amount)} EGP`}</td><td><b>${row.state==='future'?'—':fmt.format(row.persons[0].amount+row.persons[1].amount)+' EGP'}</b></td></tr>`
+    }).join('');
+    $('history').innerHTML=data.entries.length?data.entries.slice().sort((a,b)=>b.date.localeCompare(a.date)||a.person-b.person).map(e=>`<div class="item"><span>${formatDate(e.date)} · ${e.person===0?'Руслан':'Настя'} · <b>${fmtWeight(e.weight)}</b></span><button type="button" data-del="${e.person}|${e.date}" aria-label="Удалить запись">Удалить</button></div>`).join(''):'<span class="muted">Пока записей нет</span>';
+    document.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>deleteEntry(b.dataset.del)));
+    $('startDate').value=data.settings.startDate;$('start0').value=data.settings.weights[0];$('start1').value=data.settings.weights[1];
+  }
+  function saveEntry(person){
+    const date=$('entryDate').value,raw=$('weight'+person).value.trim().replace(',','.'),weight=Number(raw);
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||startWeek(date)<0){toast('Дата должна входить в 12 недель челленджа');return}
+    if(dayNumber(date)>dayNumber(today())){toast('Нельзя записать будущую дату');return}
+    if(!raw||!Number.isFinite(weight)||weight<30||weight>350){toast('Укажите вес от 30 до 350 кг');return}
+    data.entries=data.entries.filter(e=>!(e.person===person&&e.date===date));data.entries.push({person,date,weight:round2(weight)});persist();
+    pending[`weight:${person}:${date}`]={type:'upsert',person,date,weight:round2(weight)};persistPending();render();toast('Вес сохранён');flushPending();
+  }
+  function deleteEntry(key){
+    let [personString,date]=key.split('|'),person=Number(personString);
+    if(!confirm(`Удалить запись ${person===0?'Руслана':'Насти'} за ${formatDate(date)}? Награды пересчитаются.`))return;
+    data.entries=data.entries.filter(e=>!(e.person===person&&e.date===date));persist();pending[`weight:${person}:${date}`]={type:'delete',person,date};persistPending();render();toast('Запись удалена');flushPending();
+  }
+  function saveSettings(){
+    const date=$('startDate').value,weights=[$('start0').value,$('start1').value].map(x=>Number(x));
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||weights.some(x=>!Number.isFinite(x)||x<30||x>350)){toast('Проверьте дату и начальные веса');return}
+    if(date!==data.settings.startDate && data.entries.length && !confirm('Изменение даты может перенести уже внесённые измерения на другие недели. Продолжить?'))return;
+    data.settings={startDate:date,weights:weights.map(round2)};persist();pending.settings={type:'settings',value:data.settings};persistPending();render();toast('Настройки сохранены');flushPending();
+  }
+  function cloudConfig(){let o=window.NASHA_SUPABASE||{};return /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(o.url||'')&&typeof o.publishableKey==='string'&&o.publishableKey.length>12}
+  function status(message,ok){$('cloudStatus').textContent=message;$('cloudStatus').classList.toggle('ok',!!ok)}
+  function authUI(){let available=cloudConfig();$('cloudSetup').classList.toggle('hidden',available);$('cloudGuest').classList.toggle('hidden',!available||!!user);$('cloudSigned').classList.toggle('hidden',!user);$('cloudEmail').textContent=user?.email||'';if(!available)status('Синхронизация ещё не подключена');else status(user?('Облако подключено'+(Object.keys(pending).length?' · ждёт отправки':' · данные общие')):'Облако готово · войдите в семейный аккаунт',!!user&&!Object.keys(pending).length)}
+  async function flushPending(){
+    if(!client||!user||processing||!navigator.onLine)return;
+    processing=true;
+    try{
+      for(const [key,action] of Object.entries(pending)){
+        let error=null;
+        if(action.type==='settings'){
+          ({error}=await client.from('family_settings').upsert({owner_id:user.id,start_date:action.value.startDate,ruslan_start:action.value.weights[0],nastya_start:action.value.weights[1],updated_at:new Date().toISOString()}));
+        }else if(action.type==='upsert'){
+          ({error}=await client.from('daily_weights').upsert({owner_id:user.id,person_idx:action.person,entry_date:action.date,weight_kg:action.weight,updated_at:new Date().toISOString()},{onConflict:'owner_id,person_idx,entry_date'}));
+        }else{
+          ({error}=await client.from('daily_weights').delete().eq('owner_id',user.id).eq('person_idx',action.person).eq('entry_date',action.date));
+        }
+        if(error)throw error;
+        if(pending[key]===action){delete pending[key];persistPending()}
+      }
+      authUI();
+    }catch(e){status('Ошибка отправки: '+e.message+' · запись на устройстве',false)}
+    finally{processing=false}
+  }
+  async function pullCloud(){
+    if(!client||!user||refreshing||processing)return;
+    refreshing=true;
+    try{
+      await flushPending();if(Object.keys(pending).length){status('Есть данные, ожидающие отправки',false);return}
+      let [a,b]=await Promise.all([client.from('family_settings').select('start_date,ruslan_start,nastya_start').eq('owner_id',user.id).maybeSingle(),client.from('daily_weights').select('person_idx,entry_date,weight_kg').eq('owner_id',user.id)]);
+      if(a.error)throw a.error;if(b.error)throw b.error;
+      if(!a.data&&!b.data.length){
+        // Первый подключённый телефон загружает свою локальную историю.
+        pending.settings={type:'settings',value:structuredClone(data.settings)};
+        data.entries.forEach(e=>{pending[`weight:${e.person}:${e.date}`]={type:'upsert',...e}});persistPending();await flushPending();
+      }else{
+        if(a.data){data.settings={startDate:a.data.start_date,weights:[Number(a.data.ruslan_start),Number(a.data.nastya_start)]}}
+        data.entries=b.data.map(r=>({person:Number(r.person_idx),date:r.entry_date,weight:Number(r.weight_kg)}));persist();render();
+      }
+      status(Object.keys(pending).length?'Ожидает отправки':'✓ Общие данные синхронизированы',!Object.keys(pending).length)
+    }catch(e){status('Ошибка загрузки: '+e.message,false)}finally{refreshing=false}
+  }
+  async function setSession(session){const id=session?.user?.id||null;if(user?.id===id)return;user=session?.user||null;authUI();if(channel){await client.removeChannel(channel);channel=null}if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null}if(!user)return;
+    await pullCloud();if(!user)return;
+    channel=client.channel('nasha-weights-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'daily_weights',filter:'owner_id=eq.'+user.id},()=>pullCloud()).on('postgres_changes',{event:'*',schema:'public',table:'family_settings',filter:'owner_id=eq.'+user.id},()=>pullCloud()).subscribe();
+    refreshTimer=setInterval(()=>pullCloud(),30000)
+  }
+  async function login(register){if(!client)return;const email=$('email').value.trim(),password=$('password').value;if(!email||!password){toast('Введите email и пароль');return}try{const {data:res,error}=register?await client.auth.signUp({email,password}):await client.auth.signInWithPassword({email,password});if(error)throw error;if(register&&!res.session)toast('Подтвердите email, затем войдите');else if(res.session)await setSession(res.session)}catch(e){toast('Вход: '+e.message)}}
+  $('entryDate').value=today();$('entryDate').addEventListener('change',render);$('saveSettings').addEventListener('click',saveSettings);
+  $('login').addEventListener('click',()=>login(false));$('register').addEventListener('click',()=>login(true));$('logout').addEventListener('click',async()=>{if(client){await client.auth.signOut();await setSession(null);toast('Вы вышли из облака')}});
+  $('syncNow').addEventListener('click',()=>pullCloud());window.addEventListener('online',pullCloud);window.addEventListener('focus',pullCloud);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pullCloud()});
+  render();authUI();
+  if(cloudConfig()){
+    try{
+      const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+      client=createClient(window.NASHA_SUPABASE.url,window.NASHA_SUPABASE.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
+      client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'||event==='SIGNED_OUT'||event==='INITIAL_SESSION')setTimeout(()=>setSession(session).catch(e=>status(e.message,false)),0)});
+      const {data:sessionData}=await client.auth.getSession();await setSession(sessionData.session);
+    }catch(e){status('Не удалось подключиться: '+e.message,false)}
+  }
+  if('serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  // Для тестирования локальной логики без подключения облака.
+  window.NASHA_DEBUG={calculations,prize,startWeek,dayString,plusDays};
+</script>
+</body>
+</html>
