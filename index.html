@@ -39,7 +39,7 @@
   <details id="cloudPanel"><summary>☁️ Синхронизация двух телефонов</summary>
     <p class="status" id="cloudStatus">Проверка подключения…</p>
     <p class="note" id="cloudSetup">Облачный проект ещё не подключён. До подключения записи сохраняются только на этом телефоне.</p>
-    <div id="cloudGuest"><p class="note">Создайте один семейный аккаунт и входите с его данными на обоих телефонах. Пароль не должен совпадать с другими вашими паролями.</p><div class="authInputs"><input id="email" type="email" placeholder="Семейный email" autocomplete="username"><input id="password" type="password" placeholder="Пароль" autocomplete="current-password"></div><div class="authActions"><button class="btn" id="login">Войти</button><button class="btn secondary" id="register">Создать аккаунт</button></div></div>
+    <div id="cloudGuest"><p class="note">Создайте один семейный аккаунт и входите с его данными на обоих телефонах. Пароль не должен совпадать с другими вашими паролями.</p><div class="authInputs"><input id="email" type="email" placeholder="Семейный email" autocomplete="username"><input id="password" type="password" placeholder="Пароль" autocomplete="current-password"></div><div class="authActions"><button class="btn" id="login">Войти</button><button class="btn secondary" id="register">Создать аккаунт</button><button class="btn secondary" id="resend">Отправить подтверждение повторно</button></div></div>
     <div id="cloudSigned" class="hidden"><p>Аккаунт: <b id="cloudEmail"></b></p><div class="authActions"><button class="btn secondary" id="syncNow">Обновить данные</button><button class="btn secondary" id="logout">Выйти</button></div></div>
     <p class="note">Сохраняйте записи при подключённом интернете. При временном сбое отправки они останутся в очереди на устройстве.</p>
   </details>
@@ -182,7 +182,18 @@
     channel=client.channel('nasha-weights-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'daily_weights',filter:'owner_id=eq.'+user.id},()=>pullCloud()).on('postgres_changes',{event:'*',schema:'public',table:'family_settings',filter:'owner_id=eq.'+user.id},()=>pullCloud()).subscribe();
     refreshTimer=setInterval(()=>pullCloud(),30000)
   }
-  async function login(register){if(!client)return;const email=$('email').value.trim(),password=$('password').value;if(!email||!password){toast('Введите email и пароль');return}try{const {data:res,error}=register?await client.auth.signUp({email,password}):await client.auth.signInWithPassword({email,password});if(error)throw error;if(register&&!res.session)toast('Подтвердите email, затем войдите');else if(res.session)await setSession(res.session)}catch(e){toast('Вход: '+e.message)}}
+  async function login(register){if(!client)return;const email=$('email').value.trim(),password=$('password').value;if(!email||!password){toast('Введите email и пароль');return}try{const {data:res,error}=register?await client.auth.signUp({email,password,options:{emailRedirectTo:'https://rustrade1.github.io/nasha-forma/'}}):await client.auth.signInWithPassword({email,password});if(error)throw error;if(register&&!res.session)toast('Подтвердите email, затем войдите');else if(res.session)await setSession(res.session)}catch(e){toast('Вход: '+e.message)}}
+  async function resendConfirmation(){
+    if(!client){toast('Облако не подключено');return}
+    const email=$('email').value.trim();
+    if(!email){toast('Введите ваш email');return}
+    try{
+      const {error}=await client.auth.resend({type:'signup',email,options:{emailRedirectTo:'https://rustrade1.github.io/nasha-forma/'}});
+      if(error)throw error;
+      toast('Проверьте почту: отправлена новая ссылка подтверждения');
+    }catch(e){toast('Не удалось отправить письмо: '+e.message)}
+  }
+  $('resend').addEventListener('click',resendConfirmation);
   $('entryDate').value=today();$('entryDate').addEventListener('change',render);$('saveSettings').addEventListener('click',saveSettings);
   $('login').addEventListener('click',()=>login(false));$('register').addEventListener('click',()=>login(true));$('logout').addEventListener('click',async()=>{if(client){await client.auth.signOut();await setSession(null);toast('Вы вышли из облака')}});
   $('syncNow').addEventListener('click',()=>pullCloud());window.addEventListener('online',pullCloud);window.addEventListener('focus',pullCloud);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pullCloud()});
